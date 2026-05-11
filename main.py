@@ -1,31 +1,18 @@
-from machine import Pin, I2C
+import network
 import time
 
-print("Starting in 5 seconds...")
-time.sleep(5)
+from secrets import WIFI_SSID, WIFI_PASSWORD
 
-i2c = I2C(0, scl=Pin(22), sda=Pin(21))
+wifi = network.WLAN(network.STA_IF)
 
-ADDR = 0x44
+wifi.active(True)
+wifi.connect(WIFI_SSID, WIFI_PASSWORD)
 
-# Konfigurationsvärde
-config = bytes([0x12, 0x34])
+print("Connecting to WiFi...")
 
-# Skriv till config-register
-i2c.writeto_mem(ADDR, 0x0A, config)
+while not wifi.isconnected():
+    time.sleep(1)
+    print("Waiting...")
 
-time.sleep(1)
-
-while True:
-    try:
-        # Läs från channel/register
-        data = i2c.readfrom_mem(ADDR, 0x00, 2)
-
-        value = (data[0] << 8) | data[1]
-
-        print("Raw:", value)
-
-    except Exception as e:
-        print("Error:", e)
-
-    time.sleep(2)
+print("Connected!")
+print("IP address:", wifi.ifconfig()[0])

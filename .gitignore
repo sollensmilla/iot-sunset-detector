@@ -8,3 +8,4 @@ __pycache__/
 # MicroPython / Pico
 .micropico
 .DS_Store
+secrets.py
