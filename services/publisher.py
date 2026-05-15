@@ -3,6 +3,7 @@ import json
 from config import TOPIC
 
 from utils.rgb import normalize_rgb
+from utils.cct import estimate_cct
 from utils.time_utils import current_iso_time as current_timestamp
 
 def publish_sensor_data(client, sensor):
@@ -19,16 +20,19 @@ def publish_sensor_data(client, sensor):
         blue_raw
     )
 
+    cct = estimate_cct(r, g, b)
+
     payload = {
+       "timestamp": current_timestamp(),
+       "lux": lux,
+       "cct": cct,
 
-        "timestamp": current_timestamp(),
-
-        "lux": lux,
-        
-        "r": r,
-        "g": g,
-        "b": b
-    }
+       "rgb": {
+           "r": r,
+           "g": g,
+           "b": b
+       }
+   }
 
     msg = json.dumps(payload)
 
