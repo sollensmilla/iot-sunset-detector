@@ -6,7 +6,11 @@ from lib.sensor import ColorSensor
 
 from services.publisher import publish_sensor_data
 
+from utils.time_utils import sync_time
+
 connect_wifi()
+
+sync_time()
 
 client = connect_mqtt()
 

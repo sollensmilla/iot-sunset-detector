@@ -1,9 +1,9 @@
-import time
 import json
 
 from config import TOPIC
 
 from utils.rgb import normalize_rgb
+from utils.time_utils import current_iso_time as current_timestamp
 
 def publish_sensor_data(client, sensor):
 
@@ -21,14 +21,10 @@ def publish_sensor_data(client, sensor):
 
     payload = {
 
-        "timestamp": time.time(),
+        "timestamp": current_timestamp(),
 
         "lux": lux,
-
-        "red_raw": red_raw,
-        "green_raw": green_raw,
-        "blue_raw": blue_raw,
-
+        
         "r": r,
         "g": g,
         "b": b
