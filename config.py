@@ -17,3 +17,6 @@ REG_CH2 = 0x02
 REG_CH3 = 0x03
 
 REG_CONFIG = 0x0A
+
+# Data filtering
+MIN_LUX_FOR_CCT = 60

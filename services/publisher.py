@@ -5,6 +5,10 @@ from config import TOPIC
 from utils.rgb import normalize_rgb
 from utils.cct import estimate_cct
 from utils.time_utils import current_iso_time as current_timestamp
+from config import (
+    TOPIC,
+    MIN_LUX_FOR_CCT     
+)
 
 def publish_sensor_data(client, sensor):
 
@@ -20,7 +24,14 @@ def publish_sensor_data(client, sensor):
         blue_raw
     )
 
-    cct = estimate_cct(r, g, b)
+    # Ignore unstable CCT in low light
+    if lux < MIN_LUX_FOR_CCT:
+
+        cct = None
+
+    else:
+
+        cct = estimate_cct(r, g, b)
 
     payload = {
        "timestamp": current_timestamp(),
