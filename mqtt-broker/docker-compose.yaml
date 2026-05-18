@@ -6,3 +6,4 @@ services:
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./passwd:/mosquitto/config/passwd
+      - ./acl:/mosquitto/config/acl
