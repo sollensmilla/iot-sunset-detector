@@ -1,5 +1,5 @@
 # MQTT
-BROKER = "broker.emqx.io"
+BROKER = "192.168.0.12"
 TOPIC = b"lnu/iot/ss226uk/sensor"
 
 # I2C
